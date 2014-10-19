@@ -8,18 +8,47 @@ output:
 
 ## Loading and preprocessing the data
 
-
+```{r}
+activity <- read.csv("activity.csv")
+```
 
 ## What is mean total number of steps taken per day?
 
 
+Make a histogram of the total number of steps taken each day
+```{r}
+stepsums <- tapply(activity$steps, activity$date, sum, na.rm = TRUE)
+hist(stepsums, breaks=20)
+```
+
+Calculate and report the mean and median total number of steps taken per day
+```{r}
+mean(stepsums)
+median(stepsums)
+```
+
 
 ## What is the average daily activity pattern?
+Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+```{r}
+averaged_intervals <- tapply(activity$steps, activity$interval, mean, na.rm=TRUE)
+plot(averaged_intervals, type="l", xlab="Interval ID", ylab="Average steps")
+```
 
-
-
+Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+```{r}
+names(which.max(averaged_intervals))
+```
 ## Imputing missing values
+Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+```{r}
+sum(is.na(activity$steps))
+```
 
+Devise a strategy for filling in all of the missing values in the dataset.
 
+```{r}
+
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
